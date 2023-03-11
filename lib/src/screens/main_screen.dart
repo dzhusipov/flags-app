@@ -290,7 +290,7 @@ class _MainPageState extends State<MainPage> {
           children: <Widget>[
             FlipCard(
               key: cardKey,
-              front: Container(
+              front: SizedBox(
                 width: 286,
                 height: 200,
                 //color: Colors.blue,
@@ -298,7 +298,7 @@ class _MainPageState extends State<MainPage> {
                   child: SvgPicture.asset("assets/flags/$randomFlag"),
                 ),
               ),
-              back: Container(
+              back: SizedBox(
                 width: 285,
                 height: 200,
                 //color: Colors.red,

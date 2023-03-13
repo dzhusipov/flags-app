@@ -1,3 +1,4 @@
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +12,15 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late FlipCardController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = FlipCardController();
+  }
+
   @override
   Widget build(BuildContext context) {
     // key value variable for FlipCard
@@ -289,6 +299,7 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FlipCard(
+              controller: _controller,
               key: cardKey,
               front: SizedBox(
                 width: 286,
@@ -316,7 +327,9 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {});
+          setState(() {
+            _controller.toggleCard();
+          });
         },
         tooltip: 'New country',
         child: const Icon(Icons.add),

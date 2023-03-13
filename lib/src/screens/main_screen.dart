@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
       "bz.svg": "Belize",
       "ca.svg": "Canada",
       "cc.svg": "Cocos (Keeling) Islands",
-      "cd.svg": "Congo, Democratic Republic of the",
+      "cd.svg": "Democratic Republic of the Congo",
       "cf.svg": "Central African Republic",
       "cg.svg": "Congo",
       "ch.svg": "Switzerland",
@@ -96,8 +96,8 @@ class _MainPageState extends State<MainPage> {
       "et.svg": "Ethiopia",
       "fi.svg": "Finland",
       "fj.svg": "Fiji",
-      "fk.svg": "Falkland Islands (Malvinas)",
-      "fm.svg": "Micronesia, Federated States of",
+      "fk.svg": "Falkland Islands",
+      "fm.svg": "Micronesia",
       "fo.svg": "Faroe Islands",
       "fr.svg": "France",
       "ga.svg": "Gabon",
@@ -132,7 +132,7 @@ class _MainPageState extends State<MainPage> {
       "in.svg": "India",
       "io.svg": "British Indian Ocean Territory",
       "iq.svg": "Iraq",
-      "ir.svg": "Iran, Islamic Republic of",
+      "ir.svg": "Iran",
       "is.svg": "Iceland",
       "it.svg": "Italy",
       "je.svg": "Jersey",
@@ -145,8 +145,8 @@ class _MainPageState extends State<MainPage> {
       "ki.svg": "Kiribati",
       "km.svg": "Comoros",
       "kn.svg": "Saint Kitts and Nevis",
-      "kp.svg": "Korea, Democratic People's Republic of",
-      "kr.svg": "Korea, Republic of",
+      "kp.svg": "Democratic People's Republic of Korea",
+      "kr.svg": "Republic of Korea",
       "kw.svg": "Kuwait",
       "ky.svg": "Cayman Islands",
       "kz.svg": "Kazakhstan",
@@ -165,7 +165,7 @@ class _MainPageState extends State<MainPage> {
       "mc.svg": "Monaco",
       "md.svg": "Moldova, Republic of",
       "me.svg": "Montenegro",
-      "mf.svg": "Saint Martin (French part)",
+      "mf.svg": "Saint Martin",
       "mg.svg": "Madagascar",
       "mh.svg": "Marshall Islands",
       "mk.svg": "North Macedonia",
@@ -223,7 +223,7 @@ class _MainPageState extends State<MainPage> {
       "sd.svg": "Sudan",
       "se.svg": "Sweden",
       "sg.svg": "Singapore",
-      "sh.svg": "Saint Helena, Ascension and Tristan da Cunha",
+      "sh.svg": "Saint Helena",
       "si.svg": "Slovenia",
       "sj.svg": "Svalbard and Jan Mayen",
       "sk.svg": "Slovakia",
@@ -252,8 +252,8 @@ class _MainPageState extends State<MainPage> {
       "tr.svg": "Turkey",
       "tt.svg": "Trinidad and Tobago",
       "tv.svg": "Tuvalu",
-      "tw.svg": "Taiwan, Province of China",
-      "tz.svg": "Tanzania, United Republic of",
+      "tw.svg": "Taiwan",
+      "tz.svg": "Tanzania",
       "ua.svg": "Ukraine",
       "ug.svg": "Uganda",
       "um.svg": "United States Minor Outlying Islands",
@@ -262,7 +262,7 @@ class _MainPageState extends State<MainPage> {
       "uz.svg": "Uzbekistan",
       "va.svg": "Holy See",
       "vc.svg": "Saint Vincent and the Grenadines",
-      "ve.svg": "Venezuela (Bolivarian Republic of)",
+      "ve.svg": "Venezuela",
       "vg.svg": "Virgin Islands (British)",
       "vi.svg": "Virgin Islands (U.S.)",
       "vn.svg": "Viet Nam",
@@ -291,9 +291,10 @@ class _MainPageState extends State<MainPage> {
     GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Угадай страну"),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Угадай страну"),
+      // ),
+      backgroundColor: Colors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -305,22 +306,23 @@ class _MainPageState extends State<MainPage> {
                 width: 286,
                 height: 200,
                 //color: Colors.blue,
-                child: Center(
-                  child: SvgPicture.asset("assets/flags/$randomFlag"),
-                ),
+                child: SvgPicture.asset("assets/flags/$randomFlag"),
               ),
               back: SizedBox(
                 width: 285,
                 height: 200,
                 //color: Colors.red,
                 child: Center(
-                  child: Text(randomCountry),
+                  child: Text(
+                    randomCountry,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Text(
-              "Country",
-              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
@@ -332,7 +334,7 @@ class _MainPageState extends State<MainPage> {
           });
         },
         tooltip: 'New country',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.refresh),
       ),
     );
   }

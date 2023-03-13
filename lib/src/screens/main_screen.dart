@@ -294,11 +294,12 @@ class _MainPageState extends State<MainPage> {
       // appBar: AppBar(
       //   title: const Text("Угадай страну"),
       // ),
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF16a085),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            //Text("FlagMania"),
             FlipCard(
               controller: _controller,
               key: cardKey,

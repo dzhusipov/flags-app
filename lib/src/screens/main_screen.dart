@@ -16,14 +16,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = FlipCardController();
   }
 
   @override
   Widget build(BuildContext context) {
-    // key value variable for FlipCard
     final Map<String, String> flags = {
       "ad.svg": "Andorra",
       "ae.svg": "United Arab Emirates",
@@ -275,16 +273,9 @@ class _MainPageState extends State<MainPage> {
       "zm.svg": "Zambia",
       "zw.svg": "Zimbabwe"
     };
-    // Get a list of all the country names
     final List<String> countries = flags.values.toList();
-
-// Generate a random index
     final int randomIndex = Random().nextInt(countries.length);
-
-// Get the country name at the random index
     final String randomCountry = countries[randomIndex];
-
-// Find the flag corresponding to the random country name
     final String randomFlag =
         flags.entries.firstWhere((entry) => entry.value == randomCountry).key;
 
@@ -316,6 +307,7 @@ class _MainPageState extends State<MainPage> {
                 child: Center(
                   child: Text(
                     randomCountry,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 30,

@@ -14,6 +14,7 @@ class FlagsApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MainPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -1,6 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="asia.dasm.flags_anki">
-   <application
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
         android:label="flags_anki"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

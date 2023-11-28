@@ -8,7 +8,7 @@
 PRODUCT_NAME = flags_anki
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = asia.dasm.flagsAnki
+PRODUCT_BUNDLE_IDENTIFIER = asia.dasm.flags.flagsAnki
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 asia.dasm. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 asia.dasm.flags. All rights reserved.

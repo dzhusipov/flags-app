@@ -1,5 +1,5 @@
 name: flags_anki
-description: A new Flutter project.
+description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.4 <3.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,13 +30,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flip_card: ^0.7.0
-  flutter_svg: ^2.0.3
+  flutter_svg: ^2.0.6
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -47,8 +48,12 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/wm3.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -63,7 +68,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/flags/
-  #   - images/a_dot_ham.jpeg
+    - assets/wm.png
+    - assets/wm2.png
+    - assets/wm3.png
+    - assets/wm4.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -285,40 +285,48 @@ class _MainPageState extends State<MainPage> {
       // appBar: AppBar(
       //   title: const Text("Угадай страну"),
       // ),
-      backgroundColor: const Color(0xFF16a085),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            //Text("FlagMania"),
-            FlipCard(
-              controller: _controller,
-              key: cardKey,
-              front: SizedBox(
-                width: 286,
-                height: 200,
-                //color: Colors.blue,
-                child: SvgPicture.asset("assets/flags/$randomFlag"),
-              ),
-              back: SizedBox(
-                width: 285,
-                height: 200,
-                //color: Colors.red,
-                child: Center(
-                  child: Text(
-                    randomCountry,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+      // backgroundColor: const Color(0xFF16a085),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/wm2.png'), // Replace with your image path
+            fit: BoxFit.cover, // This is to cover the whole area
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              //Text("FlagMania"),
+              FlipCard(
+                controller: _controller,
+                key: cardKey,
+                front: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.6,
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  //color: Colors.blue,
+                  child: SvgPicture.asset("assets/flags/$randomFlag"),
+                ),
+                back: SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.6,
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  //color: Colors.red,
+                  child: Center(
+                    child: Text(
+                      randomCountry,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 36,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ), // Your Scaffold body content goes here
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

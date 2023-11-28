@@ -4,6 +4,8 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:math';
 
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -13,6 +15,41 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   late FlipCardController _controller;
+  int _clickCount = 0;
+  InterstitialAd? _interstitialAd;
+  bool _isAdLoaded = false;
+
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-9728671584322971/9736128488',
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          _interstitialAd = ad;
+          _isAdLoaded = true;
+        },
+        onAdFailedToLoad: (error) {
+          print('Ad failed to load: $error');
+        },
+      ),
+    );
+  }
+
+  void _onButtonPressed() {
+    _clickCount++;
+    if (_clickCount >= 10) {
+      _showInterstitialAd();
+      _clickCount = 0;
+      _loadInterstitialAd(); // Reload the ad for next time
+    }
+  }
+
+  void _showInterstitialAd() {
+    if (_isAdLoaded && _interstitialAd != null) {
+      _interstitialAd!.show();
+      _isAdLoaded = false;
+    }
+  }
 
   @override
   void initState() {
@@ -330,6 +367,7 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          _onButtonPressed();
           setState(() {
             _controller.toggleCard();
           });

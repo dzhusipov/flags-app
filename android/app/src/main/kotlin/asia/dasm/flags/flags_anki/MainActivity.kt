@@ -1,4 +1,4 @@
-package asia.dasm.flags.flags_anki
+package asia.dasm.flags_anki
 
 import io.flutter.embedding.android.FlutterActivity
 

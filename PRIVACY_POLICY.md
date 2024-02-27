@@ -1,7 +1,7 @@
-Privacy Policy for Flags Anki
+Privacy Policy for FlagMania
 Last updated: 27.02.2024
 
-Daurkhan Zhussipov ("us", "we", or "our") operates the Flags Anki mobile application (hereinafter referred to as the "Service").
+Daurkhan Zhussipov ("us", "we", or "our") operates the FlagMania mobile application (hereinafter referred to as the "Service").
 
 This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
 

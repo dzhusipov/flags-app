@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens/main_screen.dart';
+import 'screens/main_screen.dart';
 
 class FlagsApp extends StatelessWidget {
   const FlagsApp({super.key});
@@ -9,7 +9,7 @@ class FlagsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flags App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

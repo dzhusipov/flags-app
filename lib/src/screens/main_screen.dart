@@ -1,8 +1,7 @@
-import 'package:flip_card/flip_card_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flip_card/flip_card.dart';
-import 'package:flutter_svg/svg.dart';
+import 'dart:async';
 import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -12,17 +11,22 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  late FlipCardController _controller;
+  late Map<String, String> flags;
+  late List<String> countries;
+  late String randomCountry;
+  late String randomFlag;
+  late List<String> options;
+  late int score;
+  Timer? _timer;
+  int _start = 30;
+  bool isAnswered = false;
+  bool showAnswer = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = FlipCardController();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final Map<String, String> flags = {
+    score = 0;
+    flags = {
       "ad.svg": "Andorra",
       "ae.svg": "United Arab Emirates",
       "af.svg": "Afghanistan",
@@ -273,69 +277,186 @@ class _MainPageState extends State<MainPage> {
       "zm.svg": "Zambia",
       "zw.svg": "Zimbabwe"
     };
-    final List<String> countries = flags.values.toList();
-    final int randomIndex = Random().nextInt(countries.length);
-    final String randomCountry = countries[randomIndex];
-    final String randomFlag =
-        flags.entries.firstWhere((entry) => entry.value == randomCountry).key;
+    countries = flags.values.toList();
+    _generateQuestion();
+  }
 
-    GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
+  void _generateQuestion() {
+    setState(() {
+      isAnswered = false;
+      showAnswer = false;
+      _start = 30;
 
+      // Select a random country
+      int randomIndex = Random().nextInt(countries.length);
+      randomCountry = countries[randomIndex];
+      randomFlag =
+          flags.entries.firstWhere((entry) => entry.value == randomCountry).key;
+
+      // Generate options
+      options = [randomCountry];
+      while (options.length < 4) {
+        String option = countries[Random().nextInt(countries.length)];
+        if (!options.contains(option)) {
+          options.add(option);
+        }
+      }
+      options.shuffle();
+
+      // Start timer
+      _startTimer();
+    });
+  }
+
+  void _startTimer() {
+    _timer?.cancel(); // Cancel any existing timer
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_start == 0) {
+        setState(() {
+          timer.cancel();
+          showAnswer = true;
+        });
+      } else {
+        setState(() {
+          _start--;
+        });
+      }
+    });
+  }
+
+  void _checkAnswer(String selectedOption) {
+    if (isAnswered) return;
+
+    setState(() {
+      isAnswered = true;
+      _timer?.cancel();
+      if (selectedOption == randomCountry) {
+        score++;
+      }
+      showAnswer = true;
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel timer when widget is disposed
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Угадай страну"),
-      // ),
-      // backgroundColor: const Color(0xFF16a085),
+      // Improved AppBar design
+      appBar: AppBar(
+        title: const Text(
+          "Flag Quiz",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.teal,
+        elevation: 0,
+      ),
       body: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/wm2.png'), // Replace with your image path
-            fit: BoxFit.cover, // This is to cover the whole area
+          gradient: LinearGradient(
+            colors: [Colors.teal, Colors.greenAccent],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              //Text("FlagMania"),
-              FlipCard(
-                controller: _controller,
-                key: cardKey,
-                front: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.6,
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  //color: Colors.blue,
-                  child: SvgPicture.asset("assets/flags/$randomFlag"),
-                ),
-                back: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.6,
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  //color: Colors.red,
-                  child: Center(
-                    child: Text(
-                      randomCountry,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 36,
-                        fontWeight: FontWeight.w900,
-                      ),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            child: Column(
+              children: <Widget>[
+                // Display timer and score
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Time: $_start",
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
                     ),
+                    Text(
+                      "Score: $score",
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                // Display flag
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.height / 3,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 2),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      )
+                    ],
+                  ),
+                  child: SvgPicture.asset(
+                    "assets/flags/$randomFlag",
+                    fit: BoxFit.contain,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 30),
+                // Display options
+                Column(
+                  children: options.map((option) {
+                    bool isCorrect = option == randomCountry;
+                    Color optionColor = Colors.white;
+                    if (showAnswer) {
+                      if (isCorrect) {
+                        optionColor = Colors.green;
+                      } else if (isAnswered &&
+                          option ==
+                              options
+                                  .firstWhere((opt) => opt != randomCountry)) {
+                        optionColor = Colors.red;
+                      }
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: optionColor,
+                          minimumSize: const Size(double.infinity, 50),
+                        ),
+                        onPressed: () {
+                          _checkAnswer(option);
+                        },
+                        child: Text(
+                          option,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                const Spacer(),
+                // Next question button
+                if (showAnswer)
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    onPressed: () {
+                      _generateQuestion();
+                    },
+                    child: const Text(
+                      "Next Question",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ), // Your Scaffold body content goes here
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _controller.toggleCard();
-          });
-        },
-        tooltip: 'New country',
-        child: const Icon(Icons.refresh),
+        ),
       ),
     );
   }

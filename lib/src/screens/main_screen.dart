@@ -21,6 +21,7 @@ class _MainPageState extends State<MainPage> {
   int _start = 30;
   bool isAnswered = false;
   bool showAnswer = false;
+  late String selectedOption;
 
   @override
   void initState() {
@@ -328,6 +329,7 @@ class _MainPageState extends State<MainPage> {
     if (isAnswered) return;
 
     setState(() {
+      this.selectedOption = selectedOption; // Save the selected option
       isAnswered = true;
       _timer?.cancel();
       if (selectedOption == randomCountry) {
@@ -412,11 +414,9 @@ class _MainPageState extends State<MainPage> {
                     if (showAnswer) {
                       if (isCorrect) {
                         optionColor = Colors.green;
-                      } else if (isAnswered &&
-                          option ==
-                              options
-                                  .firstWhere((opt) => opt != randomCountry)) {
-                        optionColor = Colors.red;
+                      } else if (isAnswered && option == selectedOption) {
+                        optionColor = Colors
+                            .red; // Mark only the selected wrong answer as red
                       }
                     }
                     return Padding(

@@ -349,14 +349,14 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Improved AppBar design
-      appBar: AppBar(
-        title: const Text(
-          "Flag Quiz",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.teal,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     "Flag Quiz",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      //   backgroundColor: Colors.teal,
+      //   elevation: 0,
+      // ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
